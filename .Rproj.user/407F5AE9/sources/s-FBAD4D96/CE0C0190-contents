@@ -1,0 +1,42 @@
+---
+title: ""
+description: "Nem tudo é o que parece"
+tags: ["aviação", "ciência de dados", "economia","r", "visualização"]
+draft: false
+date: 2020-12-22T11:50:00-03:00
+---
+
+# Introdução
+
+
+
+
+# Obtenção dos Dados
+
+Embora eu 
+
+```{r obtencao_dados}
+download.file(url = "https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/resumo_anual_2020.csv")
+```
+
+
+# Preparação dos Dados
+
+
+```{r preparacao_dados}
+
+```
+
+
+
+
+
+# Visualização
+
+Com os dados baixados
+
+```{r visualizacao}
+
+```
+
+

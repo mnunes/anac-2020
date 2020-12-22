@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1608638442958.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CE0C0190",
+    "lastKnownWriteTime" : 1608639006,
+    "last_content_update" : 1608639006124,
+    "path" : "~/Documents/Research/github/anac-2020/anac-2020.Rmd",
+    "project_path" : "anac-2020.Rmd",
+    "properties" : {
+        "cursorPosition" : "10,0",
+        "scrollLine" : "7"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

@@ -1,0 +1,55 @@
+---
+title: "Paradoxo de Simpson"
+description: "Nem tudo é o que parece"
+tags: ["ciência de dados", "r", "visualização", "teoria"]
+draft: false
+date: 2020-11-29T11:50:00-03:00
+---
+
+# Introdução
+
+O paradoxo de Simpson aparece quando temos um cojunto de dados com uma tendência bem definida quando considerado completo, mas que muda completamente quando é separado em grupos. 
+
+
+# Visualização do Paradoxo de Simpson
+
+A melhor maneira de entender o que é o paradoxo de Simpson é visualizando-o na prática. A Figura a seguir mostra um gráfico de dispersão entre comprimento e largura de bicos de pinguins.
+
+```{r plot01}
+library(tidyverse)
+theme_set(theme_bw())
+library(broom)
+library(palmerpenguins)
+
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, colour = "black") +
+  labs(x = "Comprimento", y = "Largura", title = "Medidas de bicos de pinguins")
+
+penguins %>%
+  do(tidy(lm(bill_depth_mm ~ bill_length_mm, .)))
+```
+
+Como é possível ver acima, tanto gráfica quanto analiticamente, o coeficiente da regressão ajustada é negativo. Portanto, quanto mais comprido for o bico, menos largo ele será. Mas se criarmos uma regressão diferente para cada espécie de pinguim, o resultado obtido é diferente:
+
+
+```{r plot02}
+ggplot(penguins, 
+       aes(x=bill_length_mm, 
+           y=bill_depth_mm, 
+           group = species, 
+           colour = species)) +
+  geom_point() + 
+  geom_smooth(aes(colour = species), method = "lm", se = FALSE) +
+  labs(x = "Comprimento", y = "Largura", title = "Medidas de bicos de pinguins", species = "Espécies") +
+  scale_colour_viridis_d()
+
+penguins %>%
+  group_by(species) %>%
+  do(tidy(lm(bill_depth_mm ~ bill_length_mm, .)))
+```
+
+Perceba como as inclinações das retas se tornaram positivas, fato corroborado pelas equações das retas ajustadas a cada grupo.
+
+Os códigos usados neste post podem ser baixados no [meu github](https://github.com/mnunes/paradoxo_de_simpson).
+

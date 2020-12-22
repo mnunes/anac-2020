@@ -1,21 +1,5 @@
----
-title: "O impacto da COVID-19 na aviação brasileira em 2020"
-description: "A pandemia não foi brincadeira"
-tags: ["aviação", "ciência de dados", "covid-19", "economia", "r", "visualização"]
-draft: false
-date: 2020-12-22T6:50:00-03:00
----
+# obtencao dos dados
 
-# Introdução
-
-A fim de verificar o impacto da atual pandemia de [COVID-19](https://marcusnunes.me/tags/covid-19) na aviação brasileira, baixei alguns dos [Dados Estatísticos da ANAC](https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/dados-estatisticos) para comparar o fluxo de passageiros aéreos entre 2019 e 2020.
-
-
-# Obtenção dos Dados
-
-Embora eu utilize apenas dois anos na análise, criei um código capaz de baixar informações de todos os anos disponíveis no site da ANAC. Basta editar os valores do objeto `anos` para fazer isso.
-
-```{r obtencao_dados, eval=FALSE}
 base <- "https://www.anac.gov.br/assuntos/dados-e-estatisticas/dados-estatisticos/arquivos/resumo_anual_"
 
 anos <- 2019:2020
@@ -24,14 +8,9 @@ for (j in anos){
   download.file(url = paste0(base, j, ".csv"),
                 destfile = paste0("dados/resumo_anual_", j, ".csv"))
 }
-```
 
 
-# Preparação dos Dados
 
-Após os dados baixados, eles devem ser lidos dentro do R. Como há algumas operações a serem feitas em cada conjunto de dados, eu criei a função `preparacao` para simplificar esse processo. Essa função lê os arquivos csv e ajusta o nome das suas colunas.
-
-```{r preparacao_dados}
 # preparacao dos dados
 
 library(tidyverse)
@@ -66,17 +45,11 @@ dados <-
   select(ano, mes, passageiros) %>%
   group_by(ano, mes) %>%
   summarise(passageiros = sum(passageiros, na.rm = TRUE))
-```
 
 
 
+# visualizacao
 
-
-# Visualização
-
-Com os dados lidos e preparados, é trivial fazer a visualização.
-
-```{r visualizacao}
 ggplot(dados, aes(x = mes, y = passageiros, colour = ano)) +
   geom_line() +
   labs(x = "Mês", y = "Passageiros", colour = "Ano") +
@@ -88,6 +61,5 @@ ggplot(dados, aes(x = mes, y = passageiros, colour = ano)) +
                      labels = scales::comma_format()) +
   theme_bw() +
   scale_colour_viridis_d()
-```
 
-Os códigos usados nesse post podem ser encontrados no [github](https://github.com/mnunes/anac-2020) (me segue lá).
+
